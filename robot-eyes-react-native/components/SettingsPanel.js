@@ -128,10 +128,10 @@ export default function SettingsPanel({ visible, settings, onClose, onChange }) 
               <TextInput
                 style={s.tagInput}
                 value={settings.headerTag}
-                onChangeText={(t) => set({ headerTag: t.toUpperCase() })}
-                placeholder="STEAMBRACE"
+                onChangeText={(t) => set({ headerTag: t })}
+                placeholder="Eco-Digithon Portugal"
                 placeholderTextColor="#334"
-                autoCapitalize="characters"
+                autoCapitalize="none"
                 returnKeyType="done"
                 maxLength={24}
               />

@@ -215,6 +215,9 @@ export default function App() {
           ...saved,
           phrases: { ...DEFAULT_PHRASES, ...saved.phrases },
         };
+        // migrate stale defaults
+        if (merged.headerTag === 'STEAMBRACE') merged.headerTag = DEFAULT_SETTINGS.headerTag;
+        if (!merged.serverUrl) merged.serverUrl = DEFAULT_SETTINGS.serverUrl;
         setSettings(merged);
         settingsRef.current = merged;
         sensitivityRef.current = merged.sensitivity;
