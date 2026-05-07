@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+robot-eyes/venv/
+
+# Node / Expo
+node_modules/
+robot-eyes-react-native/node_modules/
+.expo/
+*.lock
+!package-lock.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs / data
+robot-eyes/emotion_log.json

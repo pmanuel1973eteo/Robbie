@@ -1,0 +1,54 @@
+{
+  "expo": {
+    "name": "Robot Eyes",
+    "slug": "robot-eyes-react-native",
+    "version": "1.0.0",
+    "orientation": "landscape",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": false,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "homeIndicatorAutoHidden": true,
+      "bundleIdentifier": "com.bitcliq.roboteyes",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Necessário para detetar emoções do utilizador.",
+        "NSMicrophoneUsageDescription": "Necessário para o componente de câmara."
+      }
+    },
+    "android": {
+      "package": "com.bitcliq.roboteyes",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#000000"
+      },
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
+    },
+    "plugins": [
+      "expo-asset",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Necessário para detetar emoções do utilizador.",
+          "microphonePermission": "Necessário para o componente de câmara.",
+          "recordAudioAndroid": false
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "1159f648-3004-4f0d-b570-c6932a05c6ce"
+      }
+    },
+    "owner": "bitcliqtechnologies2"
+  }
+}

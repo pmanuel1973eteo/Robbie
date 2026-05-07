@@ -1,0 +1,66 @@
+{
+  "voice": "Joana",
+  "cooldown_seconds": 8,
+
+  "greeting": {
+    "phrases": [
+      "Olá! Tudo bom?",
+      "Bom dia! Pronto para interagir!",
+      "Olá! Que bom ver-te!"
+    ]
+  },
+
+  "emotions": {
+    "happy": {
+      "phrases": [
+        "Que alegria!",
+        "Estás muito bem disposto!",
+        "Boa disposição!",
+        "Que sorriso lindo!"
+      ]
+    },
+    "sad": {
+      "phrases": [
+        "Ah, que tristeza...",
+        "Estás bem?",
+        "Posso ajudar com alguma coisa?",
+        "Espero que melhores em breve."
+      ]
+    },
+    "angry": {
+      "phrases": [
+        "Calma, respira fundo!",
+        "Tudo bem? Pareces zangado.",
+        "Não te preocupes tanto!"
+      ]
+    },
+    "surprise": {
+      "phrases": [
+        "Uau! Que surpresa!",
+        "Não esperava isso!",
+        "Oh! Que reação!"
+      ]
+    },
+    "fear": {
+      "phrases": [
+        "Estás assustado? Não te preocupes!",
+        "Não há nada a temer!",
+        "Estou aqui contigo."
+      ]
+    },
+    "disgust": {
+      "phrases": [
+        "Isso não te agrada?",
+        "Não gostas do que vês?",
+        "Percebo, também há coisas que não gosto!"
+      ]
+    },
+    "neutral": {
+      "phrases": [
+        "Estou a observar-te com atenção.",
+        "Tudo tranquilo por aqui.",
+        "O que estás a pensar?"
+      ]
+    }
+  }
+}
