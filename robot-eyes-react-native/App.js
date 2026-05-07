@@ -33,7 +33,7 @@ const DEFAULT_SETTINGS = {
   showDebug:      true,
   sensitivity:    1.0,
   serverUrl:      'http://techcaresenior.eu:5001',
-  headerTag:      'STEAMBRACE',
+  headerTag:      'Eco-Digithon Portugal',
   phrases:        DEFAULT_PHRASES,
 };
 const SETTINGS_KEY   = 'robot_eyes_settings';
