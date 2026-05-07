@@ -32,7 +32,7 @@ const DEFAULT_SETTINGS = {
   emotionEnabled: true,
   showDebug:      true,
   sensitivity:    1.0,
-  serverUrl:      '',
+  serverUrl:      'http://techcaresenior.eu:5001',
   headerTag:      'STEAMBRACE',
   phrases:        DEFAULT_PHRASES,
 };
