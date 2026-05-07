@@ -57,11 +57,11 @@ const EMOTION_COLORS = {
 };
 
 const MOOD_CONFIG = {
-  neutral:   { topLid: 0.0,  botLid: 0.0,  scale: 1.00, color: null,      opac: 0,    smile: 1 },
-  happy:     { topLid: 0.0,  botLid: 0.0,  scale: 1.12, color: '#88FFAA', opac: 0.08, smile: 1 },
-  sad:       { topLid: 0.38, botLid: 0.0,  scale: 0.88, color: '#2244BB', opac: 0.22, smile: 0 },
-  angry:     { topLid: 0.28, botLid: 0.22, scale: 0.80, color: '#FF2200', opac: 0.28, smile: 0 },
-  surprised: { topLid: 0.0,  botLid: 0.0,  scale: 1.28, color: '#FFFFFF', opac: 0.12, smile: 1 },
+  neutral:   { topLid: 0.0,  botLid: 0.0,  scale: 1.00, color: null,      opac: 0,    smile: 1, flip:  1 },
+  happy:     { topLid: 0.0,  botLid: 0.0,  scale: 1.12, color: '#88FFAA', opac: 0.08, smile: 1, flip:  1 },
+  sad:       { topLid: 0.38, botLid: 0.0,  scale: 0.88, color: '#2244BB', opac: 0.22, smile: 1, flip: -1 },
+  angry:     { topLid: 0.28, botLid: 0.22, scale: 0.80, color: '#FF2200', opac: 0.28, smile: 1, flip: -1 },
+  surprised: { topLid: 0.0,  botLid: 0.0,  scale: 1.28, color: '#FFFFFF', opac: 0.12, smile: 1, flip:  1 },
 };
 
 // Responsive sizing
@@ -141,11 +141,12 @@ export default function App() {
   const scanY    = useRef(new Animated.Value(-EYE_H)).current;
 
   // Mood animations
-  const topLidMood  = useRef(new Animated.Value(0)).current;
-  const botLidAnim  = useRef(new Animated.Value(0)).current;
-  const eyeScaleY   = useRef(new Animated.Value(1)).current;
-  const overlayOpac = useRef(new Animated.Value(0)).current;
-  const smileOpac   = useRef(new Animated.Value(1)).current;
+  const topLidMood   = useRef(new Animated.Value(0)).current;
+  const botLidAnim   = useRef(new Animated.Value(0)).current;
+  const eyeScaleY    = useRef(new Animated.Value(1)).current;
+  const overlayOpac  = useRef(new Animated.Value(0)).current;
+  const smileOpac    = useRef(new Animated.Value(1)).current;
+  const mouthFlipAnim = useRef(new Animated.Value(1)).current;
   const topLidBase  = useRef(0);
   const overlayColorRef = useRef(null);
 
@@ -248,11 +249,12 @@ export default function App() {
     ]).start(() => {
       setOverlayColor(cfg.color);
       Animated.parallel([
-        Animated.timing(topLidMood,  { toValue: cfg.topLid, duration: 600, useNativeDriver: true }),
-        Animated.timing(botLidAnim,  { toValue: cfg.botLid, duration: 600, useNativeDriver: true }),
-        Animated.timing(eyeScaleY,   { toValue: cfg.scale,  duration: 500, useNativeDriver: true }),
-        Animated.timing(smileOpac,   { toValue: cfg.smile,  duration: 400, useNativeDriver: true }),
-        Animated.timing(overlayOpac, { toValue: cfg.opac,   duration: 400, useNativeDriver: true }),
+        Animated.timing(topLidMood,   { toValue: cfg.topLid, duration: 600, useNativeDriver: true }),
+        Animated.timing(botLidAnim,   { toValue: cfg.botLid, duration: 600, useNativeDriver: true }),
+        Animated.timing(eyeScaleY,    { toValue: cfg.scale,  duration: 500, useNativeDriver: true }),
+        Animated.timing(smileOpac,    { toValue: cfg.smile,  duration: 400, useNativeDriver: true }),
+        Animated.timing(overlayOpac,  { toValue: cfg.opac,   duration: 400, useNativeDriver: true }),
+        Animated.timing(mouthFlipAnim, { toValue: cfg.flip,  duration: 500, useNativeDriver: true }),
       ]).start();
     });
   };
@@ -559,8 +561,8 @@ export default function App() {
         {/* Sorriso */}
         <Animated.View
           style={[s.smileClip, {
-            width: smileW, height: smileClipH, marginTop: EYE_W * 0.20, opacity: smileOpac,
-            transform: [{ scaleY: talkScaleY }, { translateY: talkTranslateY }],
+            width: smileW, height: smileClipH, marginTop: EYE_W * 0.20,
+            transform: [{ scaleY: mouthFlipAnim }, { scaleY: talkScaleY }, { translateY: talkTranslateY }],
           }]}
         >
           <View style={[s.smileArc, { width: smileW, height: smileArcH, borderRadius: smileArcH * 0.5, ...iosShadow(10, 0.85) }]} />
