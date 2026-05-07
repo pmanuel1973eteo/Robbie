@@ -72,6 +72,30 @@ Corre na porta **5001**. Endpoints:
 
 ---
 
+## Dashboard — Estatísticas e Mensagens
+
+Com o servidor a correr, abre o browser e acede a:
+
+```
+http://<IP-do-servidor>:5001/
+```
+
+> O IP é mostrado no terminal quando arrancas o servidor, por exemplo `http://192.168.1.42:5001/`
+
+### O que encontras no dashboard
+
+**Timeline** — gráfico de linha com o histórico de emoções detetadas ao longo do tempo. Podes filtrar por janela temporal (15 min, 30 min, 1h, 3h, ou tudo) e navegar para trás no tempo com os botões de paginação.
+
+**Distribuição** — gráfico circular (doughnut) com a percentagem de cada emoção no período visível.
+
+**Log recente** — tabela com hora e emoção dos últimos registos.
+
+**Enviar mensagem ao Robot** — caixa de texto que permite escrever uma mensagem; ao clicar em *Enviar ao Robot* (ou `Ctrl+Enter`), a mensagem é entregue ao tablet na próxima vez que o app fizer polling (até 3 segundos). O robot lê a mensagem em voz alta.
+
+> Cada mensagem é consumida uma única vez — o app lê e apaga automaticamente.
+
+---
+
 ## robot-eyes-react-native — App Mobile
 
 ### Pré-requisitos
