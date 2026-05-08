@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View, Text, Modal, ScrollView, TouchableOpacity,
   Switch, TextInput, StyleSheet, SafeAreaView, Platform,
@@ -27,7 +27,35 @@ const MOOD_LABELS = {
 
 export default function SettingsPanel({ visible, settings, onClose, onChange }) {
   const [expandedMood, setExpandedMood] = useState(null);
+  const [testStatus, setTestStatus]     = useState(null); // null | 'loading' | 'ok' | 'error'
+  const [testMsg, setTestMsg]           = useState('');
+  const testTimer = useRef(null);
   const { width: winW, height: winH } = useWindowDimensions();
+
+  const testConnection = async () => {
+    const url = settings.serverUrl?.trim();
+    if (!url) { setTestStatus('error'); setTestMsg('URL vazio'); return; }
+    setTestStatus('loading');
+    setTestMsg('');
+    clearTimeout(testTimer.current);
+    try {
+      const ctrl = new AbortController();
+      const tid  = setTimeout(() => ctrl.abort(), 5000);
+      const res  = await fetch(`${url}/log?limit=1`, { signal: ctrl.signal });
+      clearTimeout(tid);
+      if (res.ok) {
+        setTestStatus('ok');
+        setTestMsg('Servidor acessível ✓');
+      } else {
+        setTestStatus('error');
+        setTestMsg(`HTTP ${res.status}`);
+      }
+    } catch (e) {
+      setTestStatus('error');
+      setTestMsg(e.name === 'AbortError' ? 'Timeout (5s)' : 'Sem acesso');
+    }
+    testTimer.current = setTimeout(() => { setTestStatus(null); setTestMsg(''); }, 5000);
+  };
 
   const set = (patch) => onChange({ ...settings, ...patch });
 
@@ -168,7 +196,7 @@ export default function SettingsPanel({ visible, settings, onClose, onChange }) 
               <TextInput
                 style={[s.tagInput, { minWidth: 200, textAlign: 'left', letterSpacing: 0 }]}
                 value={settings.serverUrl}
-                onChangeText={(t) => set({ serverUrl: t.trim() })}
+                onChangeText={(t) => { set({ serverUrl: t.trim() }); setTestStatus(null); }}
                 placeholder="http://192.168.1.X:5000"
                 placeholderTextColor="#334"
                 keyboardType="url"
@@ -176,6 +204,24 @@ export default function SettingsPanel({ visible, settings, onClose, onChange }) 
                 autoCorrect={false}
                 returnKeyType="done"
               />
+            </View>
+
+            <View style={s.testRow}>
+              <TouchableOpacity
+                style={[s.testBtn, testStatus === 'ok' && s.testBtnOk, testStatus === 'error' && s.testBtnErr]}
+                onPress={testConnection}
+                disabled={testStatus === 'loading'}
+                activeOpacity={0.7}
+              >
+                <Text style={s.testBtnText}>
+                  {testStatus === 'loading' ? 'A testar…' : 'Testar ligação'}
+                </Text>
+              </TouchableOpacity>
+              {testMsg ? (
+                <Text style={[s.testMsg, testStatus === 'ok' ? s.testMsgOk : s.testMsgErr]}>
+                  {testMsg}
+                </Text>
+              ) : null}
             </View>
 
             {/* ── Phrases ── */}
@@ -386,4 +432,27 @@ const s = StyleSheet.create({
   },
   segmentText:       { color: C.muted, fontSize: 12 },
   segmentTextActive: { color: C.cyan,  fontWeight: '600' },
+
+  testRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(0,238,255,0.07)',
+  },
+  testBtn: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 7,
+    borderWidth: 1,
+    borderColor: 'rgba(0,238,255,0.30)',
+    backgroundColor: 'rgba(0,238,255,0.06)',
+  },
+  testBtnOk:  { borderColor: 'rgba(80,220,120,0.50)', backgroundColor: 'rgba(80,220,120,0.08)' },
+  testBtnErr: { borderColor: 'rgba(255,80,60,0.50)',  backgroundColor: 'rgba(255,80,60,0.08)'  },
+  testBtnText: { color: C.cyan, fontSize: 13, letterSpacing: 0.5 },
+  testMsg:     { fontSize: 13, letterSpacing: 0.3, flex: 1 },
+  testMsgOk:   { color: 'rgba(80,220,120,0.90)' },
+  testMsgErr:  { color: 'rgba(255,100,80,0.90)' },
 });
