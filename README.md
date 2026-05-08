@@ -96,6 +96,18 @@ http://<IP-do-servidor>:5001/
 
 ---
 
+## Download — App Android (APK)
+
+> Instala diretamente no tablet ou smartphone Android, sem necessidade de Google Play.
+
+**[⬇ Descarregar APK (Android)](https://expo.dev/artifacts/eas/ipBktkBXvtpUA4Zyz4gqg9.apk)**
+
+1. Abre o link acima no dispositivo Android
+2. Aceita a instalação de fontes desconhecidas se solicitado
+3. Instala e abre a app — liga automaticamente ao servidor `https://dash.robbie.techcaresenior.eu`
+
+---
+
 ## robot-eyes-react-native — App Mobile
 
 ### Pré-requisitos
