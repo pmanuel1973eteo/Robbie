@@ -32,7 +32,7 @@ const DEFAULT_SETTINGS = {
   emotionEnabled: true,
   showDebug:      true,
   sensitivity:    1.0,
-  serverUrl:      'http://techcaresenior.eu:5001',
+  serverUrl:      'https://techcaresenior.eu',
   headerTag:      'Eco-Digithon Portugal',
   phrases:        DEFAULT_PHRASES,
 };
@@ -217,7 +217,7 @@ export default function App() {
         };
         // migrate stale defaults
         if (merged.headerTag === 'STEAMBRACE') merged.headerTag = DEFAULT_SETTINGS.headerTag;
-        if (!merged.serverUrl) merged.serverUrl = DEFAULT_SETTINGS.serverUrl;
+        if (!merged.serverUrl || merged.serverUrl === 'http://techcaresenior.eu:5001') merged.serverUrl = DEFAULT_SETTINGS.serverUrl;
         setSettings(merged);
         settingsRef.current = merged;
         sensitivityRef.current = merged.sensitivity;
